@@ -1,2 +1,2 @@
 # Practice_4
-pthreads, mutex
+pthreads, without mutex (because no need to)
