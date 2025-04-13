@@ -12,28 +12,34 @@ typedef struct {
 void* routine(void*);
 
 int main(int argc, char* argv[]) {
-    // thread declaration
-    pthread_t thread[5];
-    int i;
-    int arr[5];
-    for (int j = 0; j < 5; j++) {
-        printf("Choose sleep time for %d thread: ", j+1);
-        scanf("%d", arr+j);
-    }
-    // creating threads
-    for (i = 0; i < 5; i++) {
-        Data* data = malloc(sizeof(Data));
-        data->index = i;
-        data->sleep_time = arr[i];
-        if (pthread_create(&thread[i], NULL, &routine, data)) return EXIT_FAILURE;
-    }
-    for (int j = 0; j < 50; j++) printf("=");
-    printf("\n");
-    // joining threads
-    for (i = 0; i < 5; i++) {
-        if (pthread_join(thread[i], NULL)) return EXIT_FAILURE;
-    }
-    printf("Success!");
+    char choice;
+    do {
+        // thread declaration
+        pthread_t thread[5];
+        int i;
+        int arr[5];
+        for (int j = 0; j < 5; j++) {
+            printf("Choose sleep time for %d thread: ", j+1);
+            scanf("%d", arr+j);
+        }
+        // creating threads
+        for (i = 0; i < 5; i++) {
+            Data* data = malloc(sizeof(Data));
+            data->index = i;
+            data->sleep_time = arr[i];
+            if (pthread_create(&thread[i], NULL, &routine, data)) return EXIT_FAILURE;
+        }
+        for (int j = 0; j < 50; j++) printf("=");
+        printf("\n");
+        // joining threads
+        for (i = 0; i < 5; i++) {
+            if (pthread_join(thread[i], NULL)) return EXIT_FAILURE;
+        }
+        printf("Success!\n\n");
+        // loop condition
+        printf("Press 'x' to quit or any other key to restart: ");
+        scanf(" %c", &choice);
+    } while (choice != 'x');
     return EXIT_SUCCESS;
 }
 
