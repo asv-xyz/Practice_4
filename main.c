@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     printf("\n");
     // waiting for thread to close
     for (int i = 0; i<5; i++) {
-        pthread_join(threads[i], NULL);
+        if (pthread_join(threads[i], NULL)) return EXIT_FAILURE;
         printf("Thread %d has stopped\n", i);
     }
     printf("\n");
