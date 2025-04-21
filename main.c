@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
             data->index = i;
             data->sleep_time = arr[i];
             if (pthread_create(&thread[i], NULL, &routine, data)) return EXIT_FAILURE;
+            printf("%d started working\n", data->index+1);
         }
         for (int j = 0; j < 50; j++) printf("=");
         printf("\n");
@@ -37,7 +38,7 @@ int main(int argc, char* argv[]) {
         }
         printf("Success!\n\n");
         // loop condition
-        printf("Press 'x' to quit or any other key to restart: ");
+        printf("Press 'x' to quit or 'r' to restart: ");
         scanf(" %c", &choice);
     } while (choice != 'x');
     return EXIT_SUCCESS;
